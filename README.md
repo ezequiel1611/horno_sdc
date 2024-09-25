@@ -48,4 +48,6 @@ Además de la visualización en tiempo real, la página web tiene un botón "Dat
 
 Una vez en la página web usted podrá ver controlador deslizable que indica la potencia del horno en una escala del 0% al 100%, este controlador tiene un paso de 10% por lo que usted podrá determinar la potencia del horno a voluntad mediante la variación de este controlador deslizable. Este control deslizable envia el dato de a que ángulo se debe realizar el disparo del TRIAC a la base de datos y es el ESP32 el cual luego lee esta información y ajusta el ángulo de disparo al deseado para aśi establecer la potencia del horno a la requerida por el usuario.
 
+**[Aplicación Web](https://horno-sdc.web.app/)**
+
 ![preview app web](https://github.com/ezequiel1611/horno_sdc/blob/main/Images/webapp_preview.png)
