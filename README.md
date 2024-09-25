@@ -1,2 +1,7 @@
-# horno_sdc
-Beca de Servicio para actualizar un horno a escala con propósitos académicos usando el microcontrolador ESP32.
+# HornoESP32 1.0
+
+En el marco de una beca de servicio del Laboratorio de Control de la UTN Facultad Regional Paraná se realizó una actualización de un horno usado con fines académicos de forma que ahora el mismo use una placa de desarrollo ESP32 DevKit V1 como microcontrolador dotando así al equipo de la capacidad de conexión a internet. El microcontrolador maneja la potencia del horno mediante el uso de un TRIAC con control de disparo por ángulo de fase y cuenta con un sensor DHT11 para monitorear la temperatura del horno. Mediante la implementación de una base de datos en tiempo real (RTDB por Real Time Database) a través de la plataforma de Google Firebase es que interactúan tanto el microcontrolador como la aplicación web desarrollada para el control y monitoreo del sistema. El microcontrolador realiza peticiones a la RTDB cada 5 segundos actualizando la información de la temperatura del horno y verificando si la potencia empleada es la seleccionada por el usuario, mientras que al mismo tiempo la aplicación web lee cada segundo de la RTDB la información de la temperatura y la muestra en un gráfico temporal además de proveerle al usuario de un control deslizable para seleccionar la potencia del horno en una escala del 0% al 100%.
+
+# Control de Potencia
+
+El control de disparo del TRIAC por ángulo de fase se basa en la conexión de la tensión de red con la carga en cualquier punto de la semionda de forma sincronizada, de forma que se puede "recortar" la tensión sinusoidal en sectores más pequeños regulando así la potencia aplicada a la carga.
