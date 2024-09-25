@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horno - Sistemas de Control</title>
+    <link rel="stylesheet" href="style.css">
+    <!--FONT AWESOME ICONS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!--FONT AWESOME FOOTER -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--GOOGLE FONTS-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Play&display=swap" rel="stylesheet"> 
+</head>
+<body>
+    <div class="container">
+        <div class="topnav">
+            <a class="active" href="https://horno-sdc.web.app/">Horno ESP32</a>
+            <a href="https://github.com/ezequiel1611/horno_sdc" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://horno-sdc-default-rtdb.firebaseio.com/" target="_blank" rel="noopener noreferrer">Firebase</a>
+        </div> 
+        <br>
+        <h1>Horno ESP32</h1>
+        <div class="controls">
+            <button class="btn1" id="toggleButton">On/Off</button>
+            <label for="powerSlider">Potencia: </label>
+            <input type="range" id="powerSlider" min="-180" max="0" step="18" value="-90">
+            <span id="powerValue">50</span>
+            <i class="fas fa-lightbulb"></i>
+            <button class="btn1" id="createDataset">Datos&nbsp;<i class="fas fa-download"></i></button>
+        </div>
+        <br>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <footer>
+        <div class="footer">
+            <div class="row">
+                <a href="https://www.facebook.com/UTN-Facultad-Regional-Paran%C3%A1-1760260217543227/?ref=br_rs" target="_blank" rel="noopener noreferrer""><i class="fa fa-facebook"></i></a>
+                <a href="https://www.instagram.com/utnparana/" target="_blank" rel="noopener noreferrer"><i class="fa fa-instagram"></i></a>
+                <a href="https://www.youtube.com/channel/UCCknIsvF5VYv2sYDtSe_sLw" target="_blank" rel="noopener noreferrer"><i class="fa fa-youtube"></i></a>
+                <a href="https://github.com/ezequiel1611" target="_blank" rel="noopener noreferrer"><i class="fa fa-github"></i></a>
+            </div>
+
+            <div class="row">
+                HORNO-ESP32 Copyright © 2024 Laboratorio de Sistemas de Control - UTN FRP || Designed By: Lautaro Ezequiel Ubiedo 
+            </div>
+        </div>
+    </footer>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+        import { getDatabase, ref, set, child, get } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js"
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCPT9ZI5MfiL9xTXEJlrv7UqJuL4fIp7zQ",
+            authDomain: "horno-sdc.firebaseapp.com",
+            databaseURL: "https://horno-sdc-default-rtdb.firebaseio.com",
+            projectId: "horno-sdc",
+            storageBucket: "horno-sdc.appspot.com",
+            messagingSenderId: "186014244545",
+            appId: "1:186014244545:web:1f41b18981eb6594827e40",
+            measurementId: "G-2S6VQZ1SN8"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        console.log('Firebase Database:', database);
+        window.database = database;
+        window.set = set;
+        window.ref = ref;
+        window.get = get;
+        window.child = child;
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
