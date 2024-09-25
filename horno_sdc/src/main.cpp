@@ -7,14 +7,14 @@
 #include "addons/RTDBHelper.h"
 
 // datos de red WiFi
-#define WIFI_SSID "Hitron-1611"
-#define WIFI_PASSWORD "ezeynata304"
+#define WIFI_SSID "NAME_WIFI"
+#define WIFI_PASSWORD "PASSWORD_WIFI"
 
 // firebase API key
-#define API_KEY "AIzaSyCPT9ZI5MfiL9xTXEJlrv7UqJuL4fIp7zQ"
+#define API_KEY "APIKEY_FIREBASE"
 
 // url a la base de datos
-#define DATABASE_URL "https://horno-sdc-default-rtdb.firebaseio.com"
+#define DATABASE_URL "URL_RTD_FIREBASE"
 
 // pines
 #define TRIGGER 18  // Pin de disparo del optoacoplador
