@@ -42,7 +42,9 @@ Usando la herramienta de desarrollo online Replit se diseño la página web para
 
 Al ingresar a la página usted verá un gráfico vacío, cuando haga click en el boton "On/Off" se habilitará la toma de datos y verá como cada segundo se imprime en la gráfica la temperatura del horno. Usted puede observar en tiempo real como varía la temperatura del horno mediante esta gráfica donde se indica en el eje X hora, minutos y segundos del dato tomado y en el eje Y la temperatura del horno en grados Celsius. Si quiere saber el valor exacto de un dato solo debe posar el mouse sobre el punto de la gráfica deseado, usted puede pausar la actualización de la gráfica haciendo click nuevamente en el botón "On/Off" si así lo desea.
 
-Además de la visualización en tiempo real, la página web tiene un botón "Datos" el cual al presionarlo realiza la descarga de un archivo "datos.m" que contiene en cada renglón el dato de temperatura de cada punto de la gráfica. Esto con la finalidad de poder realizar un posterior análisis empleando GNU Octave o MatLab.
+Además de la visualización en tiempo real, la página web tiene un botón "Datos" el cual al presionarlo realiza la descarga de un archivo "datos.m" que contiene en cada renglón el dato de temperatura de cada punto de la gráfica. Esto con la finalidad de poder realizar un posterior análisis empleando GNU Octave o MatLab como se ve a continuación.
+
+![test_octave](https://github.com/ezequiel1611/horno_sdc/blob/main/Images/plot_data_1.jpg)
 
 ## Control de la Potencia
 
@@ -50,4 +52,4 @@ Una vez en la página web usted podrá ver controlador deslizable que indica la 
 
 **[Aplicación Web](https://horno-sdc.web.app/)**
 
-![preview app web](https://github.com/ezequiel1611/horno_sdc/blob/main/Images/webapp_preview.png)
+![preview app web](https://github.com/ezequiel1611/horno_sdc/blob/main/Images/test1.png)
