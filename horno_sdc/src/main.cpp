@@ -1,27 +1,37 @@
 #include <Arduino.h>
-#include "DHT.h"
-#include <Adafruit_Sensor.h>
 #include <WiFi.h>
 #include <Firebase_ESP_Client.h>
 #include "addons/TokenHelper.h"
 #include "addons/RTDBHelper.h"
+/*
+  Incluir estas dos librerias para usar el sensor DHT11 o DHT22
+*/
+//#include "DHT.h"
+//#include <Adafruit_Sensor.h>
+/*
+  Incluir estas tres librerias para usar el BMP180 o BMP085
+*/
+#include <Wire.h>
+#include <SPI.h>
+#include <Adafruit_BMP085.h>
 
 // datos de red WiFi
-#define WIFI_SSID "NAME_WIFI"
-#define WIFI_PASSWORD "PASSWORD_WIFI"
+#define WIFI_SSID "Hitron-1611"
+#define WIFI_PASSWORD "ezeynata304"
 
 // firebase API key
-#define API_KEY "APIKEY_FIREBASE"
+#define API_KEY "AIzaSyCPT9ZI5MfiL9xTXEJlrv7UqJuL4fIp7zQ"
 
 // url a la base de datos
-#define DATABASE_URL "URL_RTD_FIREBASE"
+#define DATABASE_URL "https://horno-sdc-default-rtdb.firebaseio.com"
 
 // pines
 #define TRIGGER 18  // Pin de disparo del optoacoplador
 #define INTR_SYNC 4 // Pin de detección de cruce por cero
-#define DHTPIN 22   // Pin de lectura del sensor de temperatura
-#define DHTTYPE DHT11
 #define START 21    // Pin de encendido
+Adafruit_BMP085 bmp;  // GPIO22(D22)=SCL GPIO21(D21)=SDA
+//#define DHTPIN 22   // Pin de lectura del sensor de temperatura
+//#define DHTTYPE DHT11
 
 // inicialización de la base de datos
 FirebaseData fbdo;
@@ -29,7 +39,7 @@ FirebaseAuth auth;
 FirebaseConfig config;
 
 // inicialización del sensor DHT
-DHT dht(DHTPIN, DHTTYPE);
+//DHT dht(DHTPIN, DHTTYPE);
 
 // variables
 int potencia, disparo, ge = 0;
@@ -72,13 +82,16 @@ void setup() {
   timerAttachInterrupt(Timer0_Cfg, &grado_electrico, true);
   timerAlarmWrite(Timer0_Cfg, 99, true);
   digitalWrite(TRIGGER, LOW);
+  // inicialización de la comunicación SPI con el BMP180
+  bmp.begin();
   // inicializacion del sensor DHT
-  dht.begin();
+  //dht.begin();
 }
 
 void loop() {
   // lectura del sensor de temperatura
-  t = dht.readTemperature();
+  t = bmp.readTemperature();
+  //t = dht.readTemperature();
   // hago una petición a la base de datos
   if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 5000 || sendDataPrevMillis == 0)){
     sendDataPrevMillis = millis();
