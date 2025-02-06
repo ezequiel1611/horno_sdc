@@ -13,11 +13,11 @@
 */
 #include <Wire.h>
 #include <SPI.h>
-#include <Adafruit_BMP085.h>
+//#include <Adafruit_BMP085.h>
 
 // datos de red WiFi
-#define WIFI_SSID "Hitron-1611"
-#define WIFI_PASSWORD "ezeynata304"
+#define WIFI_SSID "FagduT2"
+#define WIFI_PASSWORD "!fa23gd11ut22"
 
 // firebase API key
 #define API_KEY "AIzaSyCPT9ZI5MfiL9xTXEJlrv7UqJuL4fIp7zQ"
@@ -25,11 +25,15 @@
 // url a la base de datos
 #define DATABASE_URL "https://horno-sdc-default-rtdb.firebaseio.com"
 
+// datos de autenticación
+#define USER_EMAIL "horno@sdc.utn.frp"
+#define USER_PASSWORD "patronato1914"
+
 // pines
-#define TRIGGER 18  // Pin de disparo del optoacoplador
-#define INTR_SYNC 4 // Pin de detección de cruce por cero
+#define TRIGGER 4  // Pin de disparo del optoacoplador
+#define INTR_SYNC 18 // Pin de detección de cruce por cero
 #define START 21    // Pin de encendido
-Adafruit_BMP085 bmp;  // GPIO22(D22)=SCL GPIO21(D21)=SDA
+//Adafruit_BMP085 bmp;  // GPIO22(D22)=SCL GPIO21(D21)=SDA
 //#define DHTPIN 22   // Pin de lectura del sensor de temperatura
 //#define DHTTYPE DHT11
 
@@ -43,10 +47,9 @@ FirebaseConfig config;
 
 // variables
 int potencia, disparo, ge = 0;
-float t;
+float t=30;
 volatile bool onePulse = false;     // Bandera para segurar un disparo por semiciclo
 unsigned long sendDataPrevMillis = 0;
-bool signupOK = false;
 bool startFlag = false; 
 
 // timer
@@ -66,12 +69,13 @@ void setup() {
   // configuración base de datos firebase
   config.api_key = API_KEY;
   config.database_url = DATABASE_URL;
-  if (Firebase.signUp(&config, &auth, "", "")){
-    signupOK = true;
-  }
-  config.token_status_callback = tokenStatusCallback;
-  Firebase.begin(&config, &auth);
+  auth.user.email = USER_EMAIL;
+  auth.user.password = USER_PASSWORD;
   Firebase.reconnectWiFi(true);
+  fbdo.setResponseSize(4096);
+  config.token_status_callback = tokenStatusCallback;
+  config.max_token_generation_retry = 5;
+  Firebase.begin(&config, &auth);
   // configuración de pines e interrupción externa
   pinMode(START, OUTPUT);
   pinMode(TRIGGER, OUTPUT);
@@ -83,17 +87,17 @@ void setup() {
   timerAlarmWrite(Timer0_Cfg, 99, true);
   digitalWrite(TRIGGER, LOW);
   // inicialización de la comunicación SPI con el BMP180
-  bmp.begin();
+  //bmp.begin();
   // inicializacion del sensor DHT
   //dht.begin();
 }
 
 void loop() {
   // lectura del sensor de temperatura
-  t = bmp.readTemperature();
+  //t = bmp.readTemperature();
   //t = dht.readTemperature();
   // hago una petición a la base de datos
-  if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 5000 || sendDataPrevMillis == 0)){
+  if (Firebase.ready() && (millis() - sendDataPrevMillis > 5000 || sendDataPrevMillis == 0)){
     sendDataPrevMillis = millis();
     // envio de datoa a la base de datos
     Firebase.RTDB.setFloat(&fbdo, "READINGS/temperature", t);
