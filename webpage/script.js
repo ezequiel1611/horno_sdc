@@ -3,7 +3,7 @@ let data = [];
 let labels = [];
 let updateInterval;
 let isRunning = false;
-let speed = 1000;
+let speed = 5000;
 let power = 50;
 let trigger = 90;
 const canvas = document.getElementById('myChart');
@@ -72,10 +72,10 @@ function addData() {
     
     labels.push(currentTime);
 
-    if (labels.length > 100) {  // Limita el número de puntos mostrados
+    /*if (labels.length > 100) {  // Limita el número de puntos mostrados
         labels.shift();
         data.shift();
-    }
+    }*/
 
     chart.update();
 }

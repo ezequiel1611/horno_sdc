@@ -11,10 +11,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--GOOGLE FONTS-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Play&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Play&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <div class="login-container" id="login-container">
+        <div class="topnav">
+            <a class="active" href="https://horno-sdc.web.app/">Horno ESP32</a>
+            <a href="https://github.com/ezequiel1611/horno_sdc" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://horno-sdc-default-rtdb.firebaseio.com/" target="_blank" rel="noopener noreferrer">Firebase</a>
+        </div> 
+        <br>
+        <h2>Ingrese Correo y Contraseña</h2>
+        <input type="email" id="email" placeholder="Correo">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button id="login">Entrar</button>
+        <p id="error-message" style="color: red; display: none;"></p>
+    </div>
+
+    <div class="container" id="container">
         <div class="topnav">
             <a class="active" href="https://horno-sdc.web.app/">Horno ESP32</a>
             <a href="https://github.com/ezequiel1611/horno_sdc" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -47,14 +61,13 @@
                 HORNO-ESP32 Copyright © 2024 Laboratorio de Sistemas de Control - UTN FRP || Designed By: Lautaro Ezequiel Ubiedo 
             </div>
         </div>
-    </footer>
+    </footer>    
 
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
         import { getDatabase, ref, set, child, get } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js"
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCPT9ZI5MfiL9xTXEJlrv7UqJuL4fIp7zQ",
@@ -70,13 +83,37 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
-        console.log('Firebase Database:', database);
+        const auth = getAuth();
+        document.getElementById('login').addEventListener('click', signIn);
+        function signIn(){
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    console.log('User:', user);
+                    const login_frame = document.getElementById("login-container");
+                    login_frame.style.display = "none";
+                    const container_frame = document.getElementById("container");
+                    container_frame.style.display = "block";
+                    // ...
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log('Error:', errorMessage);
+                });        
+        }
+
         window.database = database;
         window.set = set;
         window.ref = ref;
         window.get = get;
         window.child = child;
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
+
