@@ -16,18 +16,18 @@
 //#include <Adafruit_BMP085.h>
 
 // datos de red WiFi
-#define WIFI_SSID "FagduT2"
-#define WIFI_PASSWORD "!fa23gd11ut22"
+#define WIFI_SSID "nombre_red"
+#define WIFI_PASSWORD "clave_red"
 
 // firebase API key
-#define API_KEY "AIzaSyCPT9ZI5MfiL9xTXEJlrv7UqJuL4fIp7zQ"
+#define API_KEY "clave_api_firebase"
 
 // url a la base de datos
-#define DATABASE_URL "https://horno-sdc-default-rtdb.firebaseio.com"
+#define DATABASE_URL "rtdb_url"
 
 // datos de autenticación
-#define USER_EMAIL "horno@sdc.utn.frp"
-#define USER_PASSWORD "patronato1914"
+#define USER_EMAIL "email_user"
+#define USER_PASSWORD "clave_user"
 
 // pines
 #define TRIGGER 4  // Pin de disparo del optoacoplador
